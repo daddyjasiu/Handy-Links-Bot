@@ -4,7 +4,6 @@
 This bot was made using Discord API, coded using Python and hosted/deployed using repl.it.
 
 You can add this bot to your server using this [LINK](https://discord.com/api/oauth2/authorize?client_id=863493514477568070&permissions=2147990592&scope=bot).
-
 ------
 
 Handy Links is currently capable of:
@@ -13,7 +12,6 @@ Handy Links is currently capable of:
 - deleting things from a database using `$del` command
 - deleting everything from a database using `$delall` command
 - showing saves things using `$links` command
-
 ------
 
 Here is an example of how the bot works on my private Discord server:
