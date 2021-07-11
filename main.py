@@ -18,7 +18,7 @@ def update_links(link_message):
 def delete_link(index):
   links = db["links"]
   if len(links) > index:
-    del links[index-1]
+    del links[index]
     db["links"] = links
 
 @client.event
@@ -38,16 +38,21 @@ async def on_message(message):
 
   if msg.startswith("$add "):
     link_message = msg.split("$add ",1)[1]
-    update_links(link_message)
-    await message.channel.send("New link added!")
+    if(len(link_message) < 200):
+      update_links(link_message)
+      await message.channel.send("New link added!")
+    else:
+      await message.channel.send("Link too long!")
+
 
   if msg.startswith("$del "):
     links = []
     if "links" in db.keys():
       index = int(msg.split("$del ",1)[1])
       if index > 0 and index <= len(db["links"]):
-        delete_link(index)
+        delete_link(index-1)
         links = db["links"]
+        await message.channel.send("Link successfully deleted!")
       else:
         await message.channel.send("No such index to delete!")
   
