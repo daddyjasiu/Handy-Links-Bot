@@ -19,4 +19,6 @@ Handy Links is currently capable of:
 
 Here is an example of how the bot works on my private Discord server:
 
-![alt text](https://github.com/hi-im-angel/Handy-Links-Bot/blob/main/imgs/handybot.png "Example of the bot working below:")
+![image](https://github.com/hi-im-angel/Handy-Links-Bot/blob/main/imgs/handybot.png "Example of the bot working below:")
+<br>
+![image](https://user-images.githubusercontent.com/65863073/126881228-e41537e7-bd03-4ac6-bf02-21c3f97db418.png)
