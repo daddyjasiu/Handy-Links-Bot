@@ -9,10 +9,11 @@ You can add this bot to your server using this [LINK](https://discord.com/api/oa
 
 Handy Links is currently capable of:
 - showing all commands using `$help` command
-- saving things to a database using `$add` command
-- deleting things from a database using `$del` command
+- saving things to a database using `$add <link>` command
+- deleting things from a database using `$del <index>` command
 - deleting everything from a database using `$delall` command
 - showing saves things using `$links` command
+- displaying most important League Of Legends stats using `$stats <name>` command
 
 ---
 
