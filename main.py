@@ -27,23 +27,21 @@ def delete_link(index):
     del links[index]
     db["links"] = links
 
-def getSummonnerInfo(bSoup):
+def getSummonerInfo(bSoup):
   soloq = bSoup.find('div', class_ = 'TierRankInfo')
   name = bSoup.find('span', class_ = 'Name').get_text()
   queueType = soloq.find('div', class_ = 'RankType').get_text()
   soloqRank = soloq.find('div', class_ = 'TierRank').get_text()
   lp = soloq.find('span', class_ = 'LeaguePoints').get_text().strip()
   winRatio = soloq.find('span', class_ = 'winratio').get_text()
-
   mess = ("==========================\r\n" + 
-  "__**Summonner Name:**__ `" + name + "`\r\n" +
+  "__**Summoner Name:**__ `" + name + "`\r\n" +
   "__**Queue Type:**__ `" + queueType + "`\r\n" +
   "__**Rank:**__ `" + soloqRank +  "`\r\n" +
   "__**LP:**__ `" + lp  + "`\r\n" +
   "__**WR:**__ `" + winRatio + "`\r\n" + 
   "==========================")
   return mess
-
 
 @client.event
 async def on_ready():
@@ -57,7 +55,7 @@ async def on_message(message):
   msg = message.content
 
   if msg.startswith("$help"):
-    helpMsg = "Use these commands to use this bot:\n`$add <link>` - adds a new link to the database\n`$del <index>` - deletes a link from the database\n`$delall` - deletes all links from the database\n`$links` - shows saved handy links\n`$stats <name>` - displays the most important info about LoL Summonner from OP.GG"
+    helpMsg = "Use these commands to use this bot:\n`$add <link>` - adds a new link to the database\n`$del <index>` - deletes a link from the database\n`$delall` - deletes all links from the database\n`$links` - shows saved handy links\n`$stats <name>` - displays the most important info about LoL Summoner from OP.GG"
     await message.channel.send(helpMsg)
 
   if msg.startswith("$add "):
@@ -106,18 +104,16 @@ async def on_message(message):
     if(climb_target.lower() == 'levis' or climb_target.lower() == 'levi' or climb_target.lower() == 'sou'):
       page = get(levisURL)
       bSoup = BeautifulSoup(page.content, 'html.parser')
-      mess = getSummonnerInfo(bSoup)
+      mess = getSummonerInfo(bSoup)
       await message.channel.send(mess)
       
     elif(climb_target.lower() == 'esteban' or climb_target.lower() == 'ban' or climb_target.lower() == 'banek'):
       page = get(estebanURL1)
       bSoup = BeautifulSoup(page.content, 'html.parser')
-      mess = getSummonnerInfo(bSoup)
-
+      mess = getSummonerInfo(bSoup)
       page = get(estebanURL2)
       bSoup = BeautifulSoup(page.content, 'html.parser')
-      mess = mess[0:len(mess)-27] + "\n" + getSummonnerInfo(bSoup)
-
+      mess = mess[0:len(mess)-27] + "\n" + getSummonerInfo(bSoup)
       await message.channel.send(mess)
 
 keep_alive()
