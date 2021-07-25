@@ -26,3 +26,7 @@ Here is an example of how the bot works on my private Discord server:
 
 ### `$stats` command:
 ![image](https://user-images.githubusercontent.com/65863073/126881228-e41537e7-bd03-4ac6-bf02-21c3f97db418.png)
+<br>
+
+### `$joke` command:
+![image](https://user-images.githubusercontent.com/65863073/126884180-acf34ea9-be41-447d-93c3-1f75d22b478b.png)
