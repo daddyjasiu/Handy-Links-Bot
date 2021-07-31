@@ -28,6 +28,27 @@ def delete_link(index):
     del links[index]
     db["links"] = links
 
+def isSou(name):
+  if name == 'levis' or \
+  name == 'levi' or \
+  name == 'sou' or \
+  name == 'igor' or \
+  name == 'challenger' or \
+  name == 'zuczek':
+    return True
+  return False
+
+def isEsteban(name):
+  if name == 'esteban' or \
+  name == 'ban' or \
+  name == 'banek' or \
+  name == 'este' or \
+  name == 'rozek' or \
+  name == 'daniel':
+    return True
+  return False
+
+
 def getSummonerInfo(bSoup):
   soloq = bSoup.find('div', class_ = 'TierRankInfo')
   name = bSoup.find('span', class_ = 'Name').get_text()
@@ -35,13 +56,43 @@ def getSummonerInfo(bSoup):
   soloqRank = soloq.find('div', class_ = 'TierRank').get_text()
   lp = soloq.find('span', class_ = 'LeaguePoints').get_text().strip()
   winRatio = soloq.find('span', class_ = 'winratio').get_text()
-  mess = ("==========================\r\n" + 
-  "__**Summoner Name:**__ `" + name + "`\r\n" +
-  "__**Queue Type:**__ `" + queueType + "`\r\n" +
-  "__**Rank:**__ `" + soloqRank +  "`\r\n" +
-  "__**LP:**__ `" + lp  + "`\r\n" +
-  "__**WR:**__ `" + winRatio + "`\r\n" + 
+  mess = ("==========================\n" + 
+  "**• Summoner Name:** `" + name + "`\n" +
+  "**• Queue Type:** `" + queueType + "`\n" +
+  "**• Rank:** `" + soloqRank +  "`\n" +
+  "**• LP:** `" + lp  + "`\n" +
+  "**• WR:** `" + winRatio + "`\n" + 
   "==========================")
+  return mess
+
+def getSummonerHistory(bSoup):
+  gameAmount = 0
+  mess = ""
+  name = bSoup.find('span', class_ = 'Name').get_text()
+  for game in bSoup.find_all('div', class_ = 'GameItemWrap'):
+    if(gameAmount < 5):
+      gameType = game.find('div', class_ = 'GameType').get_text().strip()
+      gameResult = game.find('div', class_ = 'GameResult').get_text().strip()
+      gameLength = game.find('div', class_ = 'GameLength').get_text().strip()
+      championName = game.find('div', class_ = 'ChampionName').get_text().strip()
+      KDAKills = game.find('span', class_ = 'Kill').get_text().strip()
+      KDADeaths = game.find('span', class_ = 'Death').get_text().strip()
+      KDAAssists = game.find('span', class_ = 'Assist').get_text().strip()
+      KDARatio = game.find('div', class_ = 'KDARatio').get_text().strip()
+      CS = game.find('div', class_ = 'CS').get_text().strip()
+      mess = mess + ("==================================\n" +
+      "GAME NUMBER: " + str(gameAmount+1) + ' ====================\n' +
+      "**✍️ Sumonner name:** `----- " + name + "`\n" +
+      "**👾 Game type:** `---------- " + gameType + "`\n" +
+      "**🦸🏼‍♂️ Champion name:** `----- " + championName + "`\n" +
+      "**🗡️ KDA:** `--------------- " + KDAKills + '/' + KDADeaths + '/' + KDAAssists + " = " + KDARatio + "`\n" +
+      "**🤷 Game result:** `-------- " + gameResult +  "`\n" +
+      "**👻 CS:** `----------------- " + CS + "`\n" +
+      "**⏱️ Game length:** `-------- " + gameLength  + "`\n")
+      gameAmount = gameAmount + 1
+    else:
+      break
+  mess = mess + "==================================\n"
   return mess
 
 def getJoke():
@@ -63,7 +114,7 @@ async def on_message(message):
   msg = message.content
 
   if msg.startswith("$help"):
-    helpMsg = "Use these commands to use this bot:\n`$add <link>` - adds a new link to the database\n`$del <index>` - deletes a link from the database\n`$delall` - deletes all links from the database\n`$links` - shows saved handy links\n`$stats <name>` - displays the most important info about LoL Summoner from OP.GG\n`$joke` - sends a random joke to cheer up your day"
+    helpMsg = "Use these commands to use this bot:\n• `$add <link>` - adds a new link to the database\n• `$del <index>` - deletes a link from the database\n• `$delall` - deletes all links from the database\n• `$links` - shows saved handy links\n• `$stats <name>` - displays the most important info about LoL Summoner from OP.GG\n• `$history <name>` - displays last 5 games from LoL Summoner's match history\n• `$joke` - sends a random joke to cheer up your day"
     await message.channel.send(helpMsg)
 
   if msg.startswith("$add "):
@@ -73,7 +124,6 @@ async def on_message(message):
       await message.channel.send("New link added!")
     else:
       await message.channel.send("Link too long!")
-
 
   if msg.startswith("$del "):
     links = []
@@ -108,14 +158,13 @@ async def on_message(message):
     await message.channel.send(mess)
 
   if msg.startswith("$stats "):
-    climb_target = msg.split("$stats ",1)[1]
-    if(climb_target.lower() == 'levis' or climb_target.lower() == 'levi' or climb_target.lower() == 'sou'):
+    stats_target = msg.split("$stats ",1)[1]
+    if(isSou(stats_target.lower())):
       page = get(levisURL)
       bSoup = BeautifulSoup(page.content, 'html.parser')
       mess = getSummonerInfo(bSoup)
       await message.channel.send(mess)
-      
-    elif(climb_target.lower() == 'esteban' or climb_target.lower() == 'ban' or climb_target.lower() == 'banek'):
+    elif(isEsteban(stats_target.lower())):
       page = get(estebanURL1)
       bSoup = BeautifulSoup(page.content, 'html.parser')
       mess = getSummonerInfo(bSoup)
@@ -124,7 +173,20 @@ async def on_message(message):
       mess = mess[0:len(mess)-27] + "\n" + getSummonerInfo(bSoup)
       await message.channel.send(mess)
 
-  if msg.startswith('$joke'):
+  if msg.startswith("$history "):
+    stats_target = msg.split("$history ",1)[1]
+    if(isSou(stats_target.lower())):
+      page = get(levisURL)
+      bSoup = BeautifulSoup(page.content, 'html.parser')
+      mess = getSummonerHistory(bSoup)
+      await message.channel.send(mess)
+    elif(isEsteban(stats_target.lower())):
+      page = get(estebanURL1)
+      bSoup = BeautifulSoup(page.content, 'html.parser')
+      mess = getSummonerHistory(bSoup)
+      await message.channel.send(mess)
+
+  if msg.startswith("$joke"):
     page = get('https://official-joke-api.appspot.com/random_joke')
     bSoup = BeautifulSoup(page.content, 'html.parser')
     mess = getJoke()
