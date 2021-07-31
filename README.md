@@ -21,7 +21,7 @@ Handy Links is currently capable of:
 
 Here is an example of how the bot works on my private Discord server:
 
-### Links handling:
+### `$links` command:
 ![image](https://github.com/hi-im-angel/Handy-Links-Bot/blob/main/imgs/handybot.png "Example of the bot working below:")
 <br>
 
@@ -29,7 +29,7 @@ Here is an example of how the bot works on my private Discord server:
 ![image](https://user-images.githubusercontent.com/65863073/126881228-e41537e7-bd03-4ac6-bf02-21c3f97db418.png)
 <br>
 
-### `history` command:
+### `$history` command:
 ![image](https://user-images.githubusercontent.com/65863073/127754576-02e28b12-45ba-42d0-83c4-60df4d70ac36.png)
 <br>
 
