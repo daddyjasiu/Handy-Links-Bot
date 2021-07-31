@@ -26,7 +26,7 @@ Here is an example of how the bot works on my private Discord server:
 <br>
 
 ### `$stats` command:
-![image](https://user-images.githubusercontent.com/65863073/126881228-e41537e7-bd03-4ac6-bf02-21c3f97db418.png)
+![image](https://user-images.githubusercontent.com/65863073/127754613-927e496b-cac8-4a7d-988e-168a9454d41d.png)
 <br>
 
 ### `$history` command:
