@@ -14,6 +14,7 @@ Handy Links is currently capable of:
 - deleting everything from a database using `$delall` command
 - showing saves things using `$links` command
 - displaying most important League Of Legends stats using `$stats <name>` command
+- displaying last 5 League Of Legends games from match history using `$history <name>` command
 - sending a random joke to cheer up your day using `$joke` command
 
 ---
